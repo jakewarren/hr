@@ -4,8 +4,8 @@ import (
 	"strings"
 )
 
+// HorizontalRule produces a string with a length matched to the terminal dimensions
 func HorizontalRule(line ...string) string {
-
 	cols, _, err := TerminalDimensions()
 	if err != nil {
 		return "Error: " + err.Error()
@@ -13,7 +13,7 @@ func HorizontalRule(line ...string) string {
 
 	var w strings.Builder
 
-	for _, str := range line{
+	for _, str := range line {
 		var runes int
 		r := NewInfiniteRuneReader(str)
 		if r == nil {
@@ -33,7 +33,5 @@ func HorizontalRule(line ...string) string {
 		w.Write([]byte(newline))
 	}
 
-
 	return w.String()
-
 }

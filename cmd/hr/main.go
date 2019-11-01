@@ -1,13 +1,13 @@
 package main
 
-
 import (
-	flag "github.com/spf13/pflag"
 	"fmt"
 	"math/rand"
 	"os"
 	"strings"
 	"time"
+
+	flag "github.com/spf13/pflag"
 
 	"github.com/arsham/rainbow/rainbow"
 	"github.com/jakewarren/hr"
@@ -18,14 +18,14 @@ func main() {
 
 	noColor := envDisableColor()
 
-	disableColor := flag.Bool("nocolor",false,"disable color")
+	disableColor := flag.Bool("nocolor", false, "disable color")
 	flag.Parse()
 
 	// default line setup
 	line := "-|#|-"
 
-	if *disableColor{
-		noColor=true
+	if *disableColor {
+		noColor = true
 	}
 
 	if flag.NArg() >= 1 {
@@ -52,12 +52,9 @@ func main() {
 		}
 
 	}
-
 }
 
 func envDisableColor() bool {
-
-
 	// check for the existance of NO_COLOR to satisfy the nocolor standard http://no-color.org
 	_, exists := os.LookupEnv("NO_COLOR")
 
