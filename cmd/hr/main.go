@@ -38,7 +38,6 @@ func main() {
 	}
 
 	for _, l := range strings.Split(line, "|") {
-
 		hr := hr.HorizontalRule(l)
 
 		if !noColor {
@@ -46,16 +45,18 @@ func main() {
 				Reader: strings.NewReader(hr),
 				Writer: os.Stdout,
 			}
-			rb.Paint()
+			err := rb.Paint()
+			if err != nil {
+				_, _ = fmt.Fprintln(os.Stderr, err)
+			}
 		} else {
 			fmt.Print(hr)
 		}
-
 	}
 }
 
 func envDisableColor() bool {
-	// check for the existance of NO_COLOR to satisfy the nocolor standard http://no-color.org
+	// check for the existence of NO_COLOR to satisfy the nocolor standard http://no-color.org
 	_, exists := os.LookupEnv("NO_COLOR")
 
 	if exists {
@@ -65,9 +66,5 @@ func envDisableColor() bool {
 	// disable color if terminal is set to dumb
 	val, _ := os.LookupEnv("TERM")
 
-	if val == "DUMB" {
-		return true
-	}
-
-	return false
+	return val == "DUMB"
 }
